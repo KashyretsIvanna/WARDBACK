@@ -1,36 +1,37 @@
-const express = require('express')
-const cors = require('cors')
-const router = require('./routes/emailRouter')
-require('dotenv').config()
+const express = require("express");
+const cors = require("cors");
+const router = require("./routes/emailRouter");
+require("dotenv").config();
 
-const app = express()
+const app = express();
 
 // parse application/json
-app.use(express.json())
+app.use(express.json());
 // cors
-app.use(cors())
+app.use(cors());
 
-app.use('/api', router)
+app.use("/api", router);
 
 app.use((_, res, __) => {
   res.status(404).json({
-    status: 'error',
+    status: "error",
     code: 404,
-    message: 'Use api on routes: /api/tasks',
-    data: 'Not found',
-  })
-})
+    message: "Use api on routes: /api/tasks",
+    data: "Not found",
+  });
+});
 
 app.use((err, _, res, __) => {
-  console.log(err.stack)
+  console.log(err.stack);
   res.status(500).json({
-    status: 'fail',
+    status: "fail",
     code: 500,
     message: err.message,
-    data: 'Internal Server Error',
-  })
-})
+    data: "Internal Server Error",
+  });
+});
 
-app.listen(8080, () => {
-  console.log('Example app listening on port 8080!');
+app.listen(app.get("port"), function () {
+  console.log("hello");
+  console.log("Node app is running on port", app.get("port"));
 });
